@@ -63,7 +63,7 @@ class BertClassifier(nn.Module):
 from torch.optim import Adam
 from tqdm import tqdm
 
-def train(model, train_data, val_data, learning_rate, epochs, save_path='./model_bert_fine_tuned'):
+def train(model, train_data, val_data, learning_rate, epochs, save_path='./../model_bert_fine_tuned'):
 
     train, val = Dataset(train_data), Dataset(val_data)
 
