@@ -30,6 +30,6 @@ EPOCHS = 4
 model = BertClassifier()
 LR = 1e-6     
 
-train(model, df_train, df_val, LR, EPOCHS)
+print("Trainning result: ", train(model, df_train, df_val, LR, EPOCHS))
 
 evaluate(model, df_test)

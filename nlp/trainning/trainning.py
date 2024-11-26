@@ -63,7 +63,7 @@ class BertClassifier(nn.Module):
 from torch.optim import Adam
 from tqdm import tqdm
 
-def train(model, train_data, val_data, learning_rate, epochs):
+def train(model, train_data, val_data, learning_rate, epochs, save_path='./model_bert_fine_tuned'):
 
     train, val = Dataset(train_data), Dataset(val_data)
 
@@ -128,6 +128,19 @@ def train(model, train_data, val_data, learning_rate, epochs):
                 | Train Accuracy: {total_acc_train / len(train_data): .3f} \
                 | Val Loss: {total_loss_val / len(val_data): .3f} \
                 | Val Accuracy: {total_acc_val / len(val_data): .3f}')
+            
+    # Após o loop de treinamento
+    torch.save({
+        'model_state_dict': model.state_dict(),
+        'optimizer_state_dict': optimizer.state_dict(),
+        'loss': total_loss_train,
+    }, f'{save_path}/checkpoint.pth')
+
+    # Salva o modelo e tokenizador
+    model.bert.save_pretrained(save_path)
+    tokenizer.save_pretrained(save_path)
+
+    return model
 
 def evaluate(model, test_data):
 
