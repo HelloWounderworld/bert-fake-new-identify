@@ -3,9 +3,7 @@ import numpy as np
 from transformers import BertTokenizer
 
 tokenizer = BertTokenizer.from_pretrained('bert-base-cased')
-labels = {'Fake':0,
-          'Real':1,
-          }
+labels = { 'Fake':0, 'Real':1 }
 
 class Dataset(torch.utils.data.Dataset):
 
