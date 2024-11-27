@@ -34,7 +34,7 @@ loaded_model, loaded_tokenizer = load_model(save_path, model)
 # Agora você pode usar o modelo carregado para fazer previsões
 # Por exemplo, em uma função de inferência
 text_to_predict = "Seu texto aqui"
-print(check_reliability(model, loaded_tokenizer, text_to_predict))
+print(predict(model, loaded_tokenizer, text_to_predict))
 
-result = predict(loaded_model, df_test)
+result = check_reliability(loaded_model, df_test)
 print(result)
