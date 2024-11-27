@@ -14,4 +14,8 @@ Download manualy following
 
     tf_model.h5
 
+Run container using gpu
+
+    docker run --gpus all -it seu_imagem
+
 ## References
