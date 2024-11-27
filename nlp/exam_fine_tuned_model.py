@@ -29,7 +29,7 @@ df_train, df_val, df_test = np.split(df.sample(frac=1, random_state=42), [int(.8
 model = BertClassifier()
 save_path = "/home/seu_usuario/model_bert_fine_tuned" 
 
-loaded_model, loaded_tokenizer = load_model('/home/seu_usuario/model_bert_fine_tuned', model)
+loaded_model, loaded_tokenizer = load_model(save_path, model)
 
 # Agora você pode usar o modelo carregado para fazer previsões
 # Por exemplo, em uma função de inferência
