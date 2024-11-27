@@ -36,5 +36,5 @@ loaded_model, loaded_tokenizer = load_model('/home/seu_usuario/model_bert_fine_t
 text_to_predict = "Seu texto aqui"
 print(check_reliability(model, loaded_tokenizer, text_to_predict))
 
-result = predict(loaded_model, loaded_tokenizer, df_test)
+result = predict(loaded_model, df_test)
 print(result)

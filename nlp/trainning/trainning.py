@@ -212,7 +212,7 @@ def predict(model, loaded_tokenizer, text):
         
         return list(labels.keys())[prediction.item()]
 
-def check_reliability(model, loaded_tokenizer, test_data):
+def check_reliability(model, test_data):
     model.eval()
     test = Dataset(test_data)
 
