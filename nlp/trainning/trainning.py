@@ -3,7 +3,7 @@ import numpy as np
 from transformers import BertTokenizer
 
 # model_base_name = "google-bert/bert-base-cased" # By Huggingface
-model_base_name = "/home/seu_usuario/modelbase/bert-base-cased" # By local, inside container
+model_base_name = "/home/seu_usuario/modelbase/bert-base-cased" # By local, inside container - Absolute path
 
 tokenizer = BertTokenizer.from_pretrained(model_base_name)
 labels = {"Fake": 0, "Real": 1}
