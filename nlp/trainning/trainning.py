@@ -218,7 +218,10 @@ def predict(model, loaded_tokenizer, text):
         return {
             'class': list(labels.keys())[prediction.item()],
             'scores': output.squeeze().tolist(),
-            'probabilities': probabilities.squeeze().tolist()
+            'probabilities': {
+                'Fake': probabilities.squeeze().tolist()[0],
+                'Real': probabilities.squeeze().tolist()[1]
+            }
         }
         
         # Cospe se e Fake ou Real, apenas.
