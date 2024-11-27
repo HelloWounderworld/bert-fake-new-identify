@@ -206,10 +206,26 @@ def predict(model, loaded_tokenizer, text):
         mask = inputs['attention_mask']
         input_id = inputs['input_ids'].squeeze(1)
         
+         # Obtém os logits (scores antes da classificação)
         output = model(input_id, mask)
+        
+        # Calcula as probabilidades usando softmax
+        probabilities = torch.softmax(output, dim=1)
+        
+        # Obtém a predição (classe com maior probabilidade)
         prediction = torch.argmax(output, dim=1)
         
-        return list(labels.keys())[prediction.item()]
+        return {
+            'class': list(labels.keys())[prediction.item()],
+            'scores': output.squeeze().tolist(),
+            'probabilities': probabilities.squeeze().tolist()
+        }
+        
+        # Cospe se e Fake ou Real, apenas.
+        # output = model(input_id, mask)
+        # prediction = torch.argmax(output, dim=1)
+        
+        # return list(labels.keys())[prediction.item()]
 
 def check_reliability(model, test_data):
     model.eval()
