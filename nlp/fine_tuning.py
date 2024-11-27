@@ -29,7 +29,8 @@ df_train, df_val, df_test = np.split(df.sample(frac=1, random_state=42), [int(.8
 EPOCHS = 4
 model = BertClassifier()
 LR = 1e-6     
+save_path = "/home/seu_usuario/model_bert_fine_tuned"  
 
-print("Trainning result: ", train(model, df_train, df_val, LR, EPOCHS))
+print("Trainning result: ", train(model, df_train, df_val, LR, EPOCHS, save_path))
 
 evaluate(model, df_test)

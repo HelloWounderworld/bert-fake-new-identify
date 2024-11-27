@@ -2,7 +2,10 @@ import torch
 import numpy as np
 from transformers import BertTokenizer
 
-model_base_name = "google-bert/bert-base-cased"
+# model_base_name = "google-bert/bert-base-cased" # By Huggingface
+model_base_name = "/home/seu_usuario/modelbase/bert-base-cased" # By local, inside container
+model_base_name = "/home/seu_usuario/model_bert_fine_tuned" # By local, fine-tuned-model
+
 tokenizer = BertTokenizer.from_pretrained(model_base_name)
 labels = {"Fake": 0, "Real": 1}
 
@@ -78,7 +81,7 @@ def train(
     val_data,
     learning_rate,
     epochs,
-    save_path="./../model_bert_fine_tuned",
+    save_path,
 ):
     train, val = Dataset(train_data), Dataset(val_data)
 
@@ -181,3 +184,42 @@ def evaluate(model, test_data):
             total_acc_test += acc
 
     print(f"Test Accuracy: {total_acc_test / len(test_data): .3f}")
+    
+def load_model(save_path, model):
+    # Carrega o tokenizador
+    tokenizer = BertTokenizer.from_pretrained(save_path)
+    
+    # Carrega os pesos do modelo
+    checkpoint = torch.load(f'{save_path}/checkpoint.pth')
+    model.load_state_dict(checkpoint['model_state_dict'])
+    
+    # Coloca o modelo em modo de avaliação
+    model.eval()
+    
+    return model, tokenizer
+
+def predict(model, test_data):
+    model.eval()
+    test = Dataset(test_data)
+
+    test_dataloader = torch.utils.data.DataLoader(test, batch_size=2)
+
+    use_cuda = torch.cuda.is_available()
+    device = torch.device("cuda" if use_cuda else "cpu")
+
+    if use_cuda:
+        model = model.cuda()
+
+    total_acc_test = 0
+    with torch.no_grad():
+        for test_input, test_label in test_dataloader:
+            test_label = test_label.to(device)
+            mask = test_input["attention_mask"].to(device)
+            input_id = test_input["input_ids"].squeeze(1).to(device)
+
+            output = model(input_id, mask)
+
+            acc = (output.argmax(dim=1) == test_label).sum().item()
+            total_acc_test += acc
+
+    print(f"Test Accuracy, fine-tuned model: {total_acc_test / len(test_data): .3f}")
