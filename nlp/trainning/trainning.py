@@ -198,7 +198,21 @@ def load_model(save_path, model):
     
     return model, tokenizer
 
-def predict(model, test_data):
+def predict(model, loaded_tokenizer, text):
+    
+    model.eval()
+    with torch.no_grad():
+        inputs = loaded_tokenizer(text, padding='max_length', max_length=512, 
+                                  truncation=True, return_tensors="pt")
+        mask = inputs['attention_mask']
+        input_id = inputs['input_ids'].squeeze(1)
+        
+        output = model(input_id, mask)
+        prediction = torch.argmax(output, dim=1)
+        
+        return list(labels.keys())[prediction.item()]
+
+def check_reliability(model, loaded_tokenizer, test_data):
     model.eval()
     test = Dataset(test_data)
 

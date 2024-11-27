@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 
 import adjust_parameter as ap
-from trainning.trainning import load_model, predict, BertClassifier
+from trainning.trainning import load_model, predict, check_reliability, BertClassifier
 
 df_fake = pd.read_csv("Fake.csvのパス")
 df_true = pd.read_csv("True.csvのパス")
@@ -33,6 +33,8 @@ loaded_model, loaded_tokenizer = load_model('/home/seu_usuario/model_bert_fine_t
 
 # Agora você pode usar o modelo carregado para fazer previsões
 # Por exemplo, em uma função de inferência
+text_to_predict = "Seu texto aqui"
+print(check_reliability(model, loaded_tokenizer, text_to_predict))
 
-result = predict(loaded_model, df_test)
+result = predict(loaded_model, loaded_tokenizer, df_test)
 print(result)
