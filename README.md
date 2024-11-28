@@ -3,6 +3,14 @@ This system is a sample to identify the rate of an article is fake or not.
 
 ## Definitions about fake news
 
+## Building Containers
+
+    docker compose down
+
+    docker compose down --rmi all --volumes
+
+    docker builder prune
+
 ## References
 
 1. [BERT NLP building fake news system][1]
