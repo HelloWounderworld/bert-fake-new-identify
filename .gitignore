@@ -1,0 +1,11 @@
+api/.venv
+
+.env
+
+nlp/fake-and-real-news-dataset
+nlp/.venv
+nlp/model_bert_fine_tuned
+nlp/modelbase
+
+run-model/model_bert_fine_tuned
+run-model/modelbase
