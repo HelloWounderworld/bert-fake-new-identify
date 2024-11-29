@@ -1,4 +1,5 @@
 # Fine-Tuning and Activate NLP step by step
+Space to make fine-tuning, just
 
     cd modelbase
 
