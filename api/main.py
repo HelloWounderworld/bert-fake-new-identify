@@ -1,10 +1,11 @@
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 
-from accuracy.request import router as evaluate_accurary
+from requestbert.requestbert import router as request_to_bert
 
 app = FastAPI
-app.include_router(evaluate_accurary)
+
+app.include_router(request_to_bert)
 
 app.add_middleware(
     CORSMiddleware,
