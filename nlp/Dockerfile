@@ -84,7 +84,7 @@ RUN git clone https://github.com/pyenv/pyenv.git ${PYENV_ROOT} \
     && pip install --upgrade pip
 
 # Install CUDA
-WORKDIR /teramatsu/qlora
+WORKDIR /teramatsu/nlp
 
 COPY . .
 
