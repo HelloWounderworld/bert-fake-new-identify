@@ -48,7 +48,10 @@ RUN apt-get update \
     less \
     sudo \
     apt-utils \
-    dpkg
+    dpkg \
+    supervisor \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
 # set locale to ja_JP
 # ENV LANG=ja_JP.UTF-8
@@ -92,3 +95,9 @@ RUN apt-get update \
     && source .venv/bin/activate \
     && pip install -U -r requirements.txt \
     && pip freeze > requirements.txt
+
+# Expor a porta que o FastAPI usará
+EXPOSE 3000
+
+# Comando para iniciar o Supervisor
+CMD ["/usr/bin/supervisord"]
