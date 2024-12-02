@@ -80,8 +80,7 @@ RUN git clone https://github.com/pyenv/pyenv.git ${PYENV_ROOT} \
     && CFLAGS=-I/usr/include LDFLAGS=-L/usr/lib pyenv install -v ${PYTHON_VERSION} \
     && pyenv global ${PYTHON_VERSION} \
     && pyenv rehash \
-    && python --version \
-    && pip install --upgrade pip
+    && python --version
 
 # Install CUDA
 WORKDIR /teramatsu/nlp
@@ -90,9 +89,11 @@ COPY . .
 
 RUN apt-get update \
     && apt-get -y upgrade \
+    && echo 'export PATH="/usr/local/cuda/bin${PATH:+:${PATH}}' \
+    && echo 'export LD_LIBRARY_PATH="/usr/local/cuda/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}' \
+    && source ~/.bashrc \
     && nvcc --version \
-    && python -m venv .venv \
-    && source .venv/bin/activate \
+    && python -m pip install --upgrade pip \
     && pip install -U -r requirements.txt \
     && pip freeze > requirements.txt
 
