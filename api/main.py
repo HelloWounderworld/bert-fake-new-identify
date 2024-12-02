@@ -1,11 +1,11 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from requestbert.requestbert import router as request_to_bert
+from requestbert.requestbert import router as requestbert
 
 app = FastAPI
 
-app.include_router(request_to_bert)
+app.include_router(requestbert)
 
 app.add_middleware(
     CORSMiddleware,

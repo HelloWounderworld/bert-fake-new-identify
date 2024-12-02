@@ -1,5 +1,8 @@
 # Identifying Fake News Using Bert
-This system is a sample to identify the rate of an article is fake or not.
+This system aims to create an API that tests the credibility of the information in a text. In other words, it will show, how reliable the information placed in it would be or not.
+
+## System Architecture or Topology
+The topology of this system is very simple. Roughly speaking, it is being divided into two parts: BackEnd and FrontEnd
 
 ## Definitions about fake news
 
