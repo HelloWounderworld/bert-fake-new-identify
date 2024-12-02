@@ -92,7 +92,3 @@ RUN apt-get update \
     && source .venv/bin/activate \
     && pip install -U -r requirements.txt \
     && pip freeze > requirements.txt
-
-EXPOSE 8000
-
-CMD nvidia-smi
