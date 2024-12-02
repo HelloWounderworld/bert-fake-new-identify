@@ -21,4 +21,6 @@ Run container using gpu
 
     docker run --gpus all -it seu_imagem
 
+    supervisord -c /caminho/para/myapp.conf
+
 ## References
