@@ -5,9 +5,17 @@ This system is a sample to identify the rate of an article is fake or not.
 
 ## Building Containers
 
-    docker compose down
+Remove container 
 
-    docker compose down --rmi all --volumes
+    docker-compose down
+
+or 
+
+    docker-compose down --volumes
+
+    docker-compose down --rmi all --volumes
+
+clean caches
 
     docker builder prune
 
