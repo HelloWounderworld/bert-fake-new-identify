@@ -1,0 +1,1 @@
+LABELS = { 'Fake': 0, 'Real': 1 }

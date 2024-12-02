@@ -2,16 +2,22 @@ import torch
 import numpy as np
 from transformers import BertTokenizer
 
+import sys
+import os
+
+path_constants = os.path.abspath(os.path.join(os.path.dirname(__file__), '../constants'))
+sys.path.append(path_constants)
+from constants import LABELS
+
 # model_base_name = "google-bert/bert-base-cased" # By Huggingface
-model_base_name = "/home/seu_usuario/modelbase/bert-base-cased" # By local, inside container - Absolute path
+# model_base_name = "/teramatsu/nlp/modelbase/bert-base-cased" # By local, inside container - Absolute path
+model_base_name = "/teramatsu/nlp/model_bert_fine_tuned" # Fine-tunined model
 
 tokenizer = BertTokenizer.from_pretrained(model_base_name)
-labels = {"Fake": 0, "Real": 1}
-
 
 class Dataset(torch.utils.data.Dataset):
     def __init__(self, df):
-        self.labels = [labels[label] for label in df["category"]]
+        self.labels = [LABELS[label] for label in df["category"]]
         self.texts = [
             tokenizer(
                 text,

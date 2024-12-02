@@ -1,8 +1,15 @@
 import numpy as np 
 import pandas as pd
+import sys
+import os
 
+path_adjust_parameter = os.path.abspath(os.path.join(os.path.dirname(__file__), '../adjust_parameter'))
+sys.path.append(path_adjust_parameter)
 import adjust_parameter as ap
-from trainning.trainning import train, evaluate, BertClassifier
+
+path_trainning = os.path.abspath(os.path.join(os.path.dirname(__file__), '../trainning'))
+sys.path.append(path_trainning)
+import trainning as train
 
 df_fake = pd.read_csv("Fake.csvのパス")
 df_true = pd.read_csv("True.csvのパス")
@@ -27,10 +34,7 @@ df['text'] = df['text'].apply(lambda text: ap.remove_emoji(text))
 df_train, df_val, df_test = np.split(df.sample(frac=1, random_state=42), [int(.8*len(df)), int(.9*len(df))])
 
 EPOCHS = 4
-model = BertClassifier()
 LR = 1e-6     
-save_path = "/home/seu_usuario/model_bert_fine_tuned"  
+save_path = "./model_bert_fine_tuned"  
 
-print("Trainning result: ", train(model, df_train, df_val, LR, EPOCHS, save_path))
-
-evaluate(model, df_test)
+print("Trainning result: ", train(df_train, df_val, LR, EPOCHS, save_path))
