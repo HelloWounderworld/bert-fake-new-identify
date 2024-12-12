@@ -164,7 +164,8 @@ services:
       ftp_proxy: ${FTP_PROXY:-}
       no_proxy: ${NO_PROXY:-}
     ports:
-      - ${API_LLM_PORT}:8000
+      - ${UI_PORT_PROD}:8081
+      - ${UI_PORT_DEV}:8080
     user: ${USERNAME}
     working_dir: /teramatsu/qlora
     volumes:
